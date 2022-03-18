@@ -18,3 +18,8 @@ tr:nth-child(even) {
 img {
   width: 20%;
 }
+
+label {
+  display: inline-block;
+  min-width: 100px;
+}
