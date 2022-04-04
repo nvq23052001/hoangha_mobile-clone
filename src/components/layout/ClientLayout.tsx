@@ -1,14 +1,16 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 
-import Header from "./Header";
-import Footer from "./Footer";
+import Header from "./client/Header.jsx";
+import Footer from "./client/Footer";
 function ClientLayout() {
   return (
     <>
       <Header />
-      <Outlet />
-      <Footer />
+      <div className="main">
+        <Outlet />
+        <Footer />
+      </div>
     </>
   );
 }

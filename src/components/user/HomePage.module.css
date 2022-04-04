@@ -1,0 +1,74 @@
+@import url("https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap");
+.all {
+  margin: 40px 0;
+}
+.allWrapper {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-column-gap: 20px;
+}
+
+.allTitle {
+  font-family: "Archivo Black", sans-serif;
+  background-color: var(--color-main);
+  display: inline-block;
+  padding: 3px 10px;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  color: #fff;
+}
+
+.allBox {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px #00000029;
+  margin-top: 20px;
+}
+
+.allImg {
+  margin: 20px auto 0 auto;
+  display: grid;
+  justify-content: center;
+}
+
+.allInfo {
+  display: flex;
+  flex-direction: column;
+  padding: 5px 2px 5px 2px;
+}
+
+.allName {
+  font-family: "Archivo Black", sans-serif;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.allPrice {
+  margin-top: 6px;
+  font-family: "Archivo Black", sans-serif;
+  text-align: center;
+  font-size: 1.2rem;
+  color: #fd475a;
+}
+
+.AllBtn {
+  padding: 8px 0 15px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.AllBtn a {
+  display: inline-block;
+  padding: 5px 10px;
+  color: #fff;
+  font-size: 1.2rem;
+  border-radius: 8px;
+  background-color: var(--color-main);
+}
+
+.banner {
+  border-radius: 10px;
+  box-shadow: 0 4px 6px #00000029;
+  overflow: hidden;
+}

@@ -1,0 +1,119 @@
+.header {
+}
+.topNavigation {
+  background-color: var(--color-main);
+}
+
+.container {
+  padding: 10px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.topList {
+  display: flex;
+  justify-content: end;
+}
+
+.topItem {
+  color: #fff;
+  font-size: 1.3rem;
+  padding: 0 15px;
+}
+
+.heading {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.headingContainer {
+  padding: 20px 0;
+  display: flex;
+  align-items: center;
+}
+
+.searchBox {
+  flex-basis: 100%;
+  position: relative;
+  padding: 0 40px;
+}
+
+.searchBorder {
+  background: #fff;
+  border-radius: 20px;
+  padding: 0.8rem 1rem;
+  box-shadow: 0 4px 6px #ccc;
+}
+
+.searchInput {
+  border: none;
+  outline: none;
+  font-weight: bold;
+  --tw-ring-offset-shadow: #fff;
+  width: 100%;
+  font-size: 1.2rem;
+}
+
+.searchInput:focus {
+  outline: none;
+}
+
+.searchBtn {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background-image: linear-gradient(#00917a, #00483d);
+  color: white;
+  box-shadow: 0 4px 6px #ccc;
+
+  position: absolute;
+  top: -8px;
+  right: 40px;
+}
+
+.cart {
+  color: var(--color-main);
+  font-size: 30px;
+}
+
+.navWrapper {
+  background-color: var(--color-main);
+  border-radius: 10px;
+}
+
+.navList {
+  display: flex;
+  justify-content: space-around;
+  color: white;
+  padding: 10px 20px 10px 50px;
+}
+
+.navLink {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.navTitle {
+  margin-top: 5px;
+  font-size: 1rem;
+}
+.navItem {
+}
+
+.navIcon {
+  width: 25px;
+  height: 25px;
+  fill: white;
+}
+
+.line {
+  width: 0;
+  height: 5px;
+  background-color: red;
+}
+
+.nav {
+  max-width: 1200px;
+  margin: 0 auto;
+}

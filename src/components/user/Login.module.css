@@ -1,0 +1,35 @@
+.container {
+  margin-top: 20px;
+  border-radius: 20px;
+}
+
+.login {
+  display: grid;
+  grid-template-columns: 40rem 1fr;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.loginLeft {
+  background-color: #fbe9e7;
+  padding: 30px;
+}
+
+.loginTitle {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI";
+  font-weight: bold;
+  font-size: 2.5rem;
+  text-align: center;
+  padding: 30px;
+}
+
+.loginP {
+  text-align: center;
+}
+
+.loginWrapper {
+}
+
+.loginForm {
+  padding: 40px;
+}

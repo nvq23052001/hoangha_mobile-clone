@@ -1,1 +1,25 @@
+:root {
+  --color-main: #00483d;
+  --color-bg: #f4f4f4;
+}
 
+html {
+  font-size: 62.5%;
+}
+
+body {
+  background-color: var(--color-bg);
+}
+
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.justify-evenly {
+  justify-content: space-evenly;
+}
+
+.w-100 {
+  width: 100%;
+}

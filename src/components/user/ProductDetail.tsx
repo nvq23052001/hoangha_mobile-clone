@@ -1,0 +1,105 @@
+import clsx from "clsx";
+import React from "react";
+import { Carousel } from "react-carousel-minimal";
+
+import classes from "./ProductDetail.module.css";
+function ProductDetail() {
+  const data = [
+    {
+      image:
+        "https://images.fpt.shop/unsafe/fit-in/214x214/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2022/3/1/637817382309274036_samsung-galaxy-s22-ultra-do-dd-1.jpg",
+    },
+    {
+      image:
+        "https://images.fpt.shop/unsafe/fit-in/214x214/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2021/9/14/637672549881930223_vivo-y21s-xanh-dd.jpg",
+    },
+  ];
+  return (
+    <div className={classes.container}>
+      <div className={classes.productDetail}>
+        <div className={classes.productTop}>
+          <h1 className={classes.productTitle}>
+            Redmi Note 11S 8GB/128GB - Chính hãng
+          </h1>
+        </div>
+        <div className={classes.productContainer}>
+          <div className={classes.productImg}>
+            <div style={{ textAlign: "center" }}>
+              <div>
+                <Carousel
+                  data={data}
+                  time={2000}
+                  width="600px"
+                  height="400px"
+                  radius="10px"
+                  slideNumber={false}
+                  captionPosition="bottom"
+                  automatic={true}
+                  dots={false}
+                  pauseIconColor="white"
+                  pauseIconSize="40px"
+                  slideBackgroundColor="white"
+                  slideImageFit="object-fit"
+                  thumbnails={true}
+                  thumbnailWidth="100px"
+                  style={{
+                    textAlign: "center",
+                    maxWidth: "auto",
+                    maxHeight: "auto",
+                    margin: "40px auto",
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+          <div className={classes.productDetailContainer}>
+            <p className={classes.productPrice}>
+              6,050,000 ₫ | <i>Giá đã bao gồm 10% VAT</i>
+            </p>
+            <p className={classes.productShip}>
+              <svg
+                version="1.1"
+                xmlns="http://www.w3.org/2000/svg"
+                width="32"
+                height="32"
+                viewBox="0 0 32 32"
+                className={classes.shipIcon}
+              >
+                <title>clock</title>
+                <path d="M20.586 23.414l-6.586-6.586v-8.828h4v7.172l5.414 5.414zM16 0c-8.837 0-16 7.163-16 16s7.163 16 16 16 16-7.163 16-16-7.163-16-16-16zM16 28c-6.627 0-12-5.373-12-12s5.373-12 12-12c6.627 0 12 5.373 12 12s-5.373 12-12 12z"></path>
+              </svg>
+              <span>Miễn phí vận chuyển toàn quốc</span>
+            </p>
+            <div className={clsx(classes.productDesc)}>
+              <h2 className={classes.productSale}>Khuyến mãi</h2>
+              <p className={classes.productDescP}>
+                Ưu đãi mua: Ốp lưng Clear Case with MagSafe-690.000đ (Tiết kiệm
+                600.000đ): Mua Ốp lưng Silicone Case with MagSafe - 690.000đ
+                (Tiết kiệm 600.000đ); Ốp lưng Leather Case with MagSafe -
+                990.000đ (Tiết kiệm 600.000đ)
+              </p>
+            </div>
+            <div className={classes.productDesc}>
+              <h2 className={classes.productSale}>Mô tả sản phẩm</h2>
+              <p className={classes.productDescP}>
+                Thiết kế độc đáo, trẻ trung phù hợp với giới trẻ Redmi Note 11S
+                chứa một thiết kế khung phẳng hoàn toàn mới với phong cách tối
+                giản mang đến vẻ ngoài năng động và mạnh mẽ, đồng thời cũng chắc
+                chắn và an toàn trong tay bạn. Các góc cạnh điện thoại được
+                thiết kế bo tròn vô cùng thời thượng tạo cảm giác cầm nắm dễ
+                chịu. Độ dày của Redmi Note 11S chỉ 8,09mm và trọng lượng 179g
+                tạo ấn tượng về một chiếc điện thoại kích thước vừa phải để mang
+                đi bất cứ nơi đâu.
+              </p>
+            </div>
+            <div className={classes.productBtn}>
+              <button className={classes.productCart}>Thêm vào giỏ hàng</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default ProductDetail;
