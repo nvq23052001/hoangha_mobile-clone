@@ -1,7 +1,7 @@
 import instance from "../instance";
 
 export const getAll = () => {
-  return instance.get("api/products");
+  return instance.get(`api/products`);
 };
 
 export const createProduct = (data: any, token: any, userId: string) => {

@@ -15,6 +15,7 @@ import CategoryForm from "./components/admin/category/CategoryForm";
 import Login from "./components/user/Login";
 import HomePage from "./components/user/HomePage";
 import ProductDetail from "./components/user/ProductDetail";
+import NotFound from "./components/UI/NotFound";
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
             </Route>
           </Route>
         </Route>
+        <Route path="*" element={<NotFound />}></Route>
       </Routes>
     </div>
   );

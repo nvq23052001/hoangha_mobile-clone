@@ -19,16 +19,22 @@ function ProductsAdmin() {
   };
   type bgCl = string;
 
-  const [products, setProducts] = useState<product[]>([]);
   const user = useAppSelector(({ auth }) => auth.user);
+  const token = user.token;
+  const userId = user.user._id;
+
+  const [products, setProducts] = useState<product[]>([]);
 
   const getProduct = async () => {
+    console.log(userId);
     const { data } = await getAll();
     setProducts(data);
   };
 
   useEffect(() => {
-    getProduct();
+    if (user) {
+      getProduct();
+    }
   }, []);
 
   const handleDelete = async (id: string | number) => {
