@@ -1,12 +1,12 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Table, Tag, Space } from "antd";
+import { Table, Tag, Space, Switch } from "antd";
 import "antd/dist/antd.css";
 
 import { useAppSelector } from "../../../store/user/hook";
 
-import { getAll, deleteProduct } from "../../../api/product";
+import { getAll, deleteProduct, updateProduct } from "../../../api/product";
 import ButtonAdmin from "../../UI/ButtonAdmin";
 import Status from "../../UI/Status";
 import instance from "../../../api/instance";
@@ -51,6 +51,18 @@ function ProductsAdmin() {
     }
   };
 
+  const handleStatus = async (status: any, id: any) => {
+    const token = user.token;
+    const userId = user.user._id;
+    console.log(status === 1 ? 0 : 1);
+    const { data } = await updateProduct(
+      id,
+      userId,
+      { status: status === 1 ? 0 : 1 },
+      token
+    );
+  };
+
   const columns = [
     {
       title: "Name",
@@ -92,6 +104,26 @@ function ProductsAdmin() {
       title: "Status",
       dataIndex: "status",
       key: "status",
+      render: (status, product) => (
+        <div style={{ minWidth: "80px" }}>
+          <Space size="middle">
+            {status === 1 ? (
+              <Switch
+                checkedChildren="Ẩn"
+                unCheckedChildren="Hiện"
+                defaultChecked
+                onChange={() => handleStatus(status, product._id)}
+              />
+            ) : (
+              <Switch
+                checkedChildren="Ẩn"
+                unCheckedChildren="Hiện"
+                onChange={() => handleStatus(status, product._id)}
+              />
+            )}
+          </Space>
+        </div>
+      ),
     },
     {
       title: "Action",

@@ -26,7 +26,7 @@ function ProductAdmin() {
           {productDetail.name}
         </Descriptions.Item>
         <Descriptions.Item label="Giá sản phẩm">
-          {productDetail.price} VNĐ
+          {new Intl.NumberFormat("en-US").format(productDetail.price)} VNĐ
         </Descriptions.Item>
         <Descriptions.Item label="Danh mục sản phẩm">
           {nameCate}
@@ -43,6 +43,9 @@ function ProductAdmin() {
           ) : (
             <Badge status="error" text="Hết hàng" />
           )}
+        </Descriptions.Item>
+        <Descriptions.Item label="Chi tiết sản phẩm ">
+          {productDetail.description}
         </Descriptions.Item>
         <Descriptions.Item label="Ảnh chi tiết">
           <div className="flex justify-between">
