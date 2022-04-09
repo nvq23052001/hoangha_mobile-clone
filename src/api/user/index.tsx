@@ -7,3 +7,6 @@ type User = {
 export const login = (data: User) => {
   return instance.post("/api/login", data);
 };
+export const getUsers = () => {
+  return instance.get("/api/users");
+};

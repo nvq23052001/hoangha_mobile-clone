@@ -8,15 +8,18 @@ import ButtonAdmin from "../../UI/ButtonAdmin";
 
 import { getCategories } from "../../../api/category";
 import { createProduct, updateProduct, getAll } from "../../../api/product";
+import instance from "../../../api/instance";
 
 function ProductForm() {
   type Form = {
     name: string;
-    price: number;
-    img: string;
+    price: string;
+    image: any;
+    // imageDetail: any;
     description: string;
     category: string;
-    status: number;
+    status: string;
+    imageDetail: any;
   };
 
   const navigate = useNavigate();
@@ -34,29 +37,45 @@ function ProductForm() {
     defaultValues: {
       name: "",
       price: null,
-      img: "",
+      image: "",
+      // imageDetail: null,
       description: "",
       category: "",
       status: null,
+      imageDetail: "",
     },
   });
 
   const onSubmit: SubmitHandler<Form> = (data) => {
-    console.log(data);
-    handleSubmitProduct({ ...data, price: +data.price, status: +data.status });
+    handleSubmitProduct(data);
   };
 
   const handleSubmitProduct = async (data: Form) => {
     let response: any = {};
     if (id) {
-      console.log(data);
       response = await updateProduct(id, user.user._id, data, user.token);
     } else {
-      console.log("add");
-      response = await createProduct(data, user.token, user.user._id);
+      // response = await createProduct(data, user.token, user.user._id);
+      const formData = new FormData();
+      formData.append("image", data.image[0]);
+      formData.append("price", data.price);
+      formData.append("name", data.name);
+      formData.append("description", data.description);
+      formData.append("category", data.category);
+      formData.append("status", data.status);
+
+      for (let i = 0; i < data.imageDetail.length; i++) {
+        formData.append("imageDetail", data.imageDetail[i]);
+      }
+
+      response = await instance.post("/api/products", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
     }
 
-    navigate("/admin/category");
+    navigate("/admin/product");
   };
 
   const handleGetProducts = async () => {
@@ -161,7 +180,38 @@ function ProductForm() {
               Image
             </label>
             <input
-              {...register("img", {
+              name="image"
+              type="file"
+              {...register("image", {
+                required: {
+                  value: true,
+                  message: "Truong nay khong dc bo trong",
+                },
+              })}
+              className="form-control
+                         block w-full px-4 py-3 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0
+                       focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+            />
+            {errors.image && (
+              <span
+                style={{ color: "red", paddingLeft: "10px", fontSize: "14px" }}
+              >
+                {errors.image.message}
+              </span>
+            )}
+          </div>
+          <div className="mb-4 form-group">
+            <label
+              htmlFor="exampleInputEmail1"
+              className="form-label inline-block mb-2 text-gray-700"
+            >
+              Image Detail
+            </label>
+            <input
+              name="imageDetail"
+              type="file"
+              multiple
+              {...register("imageDetail", {
                 required: "Trường này không được bỏ trống",
               })}
               className="form-control
@@ -169,13 +219,13 @@ function ProductForm() {
                        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
               id="exampleInputEmail1"
               aria-describedby="emailHelp"
-              placeholder="Name category"
+              placeholder="Image Detail"
             />
-            {errors.img && (
+            {errors.imageDetail && (
               <span
                 style={{ color: "red", paddingLeft: "10px", fontSize: "14px" }}
               >
-                {errors.img.message}
+                {errors.imageDetail.message}
               </span>
             )}
           </div>
@@ -186,12 +236,7 @@ function ProductForm() {
             >
               Description
             </label>
-            {/* <textarea
-              id="desc"
-              name="desc"
-              class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
-              placeholder="Description"
-            ></textarea> */}
+
             <textarea
               {...register("description", {
                 required: "Trường này không được bỏ trống",

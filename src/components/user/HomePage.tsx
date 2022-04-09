@@ -1,121 +1,74 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Slice from "../UI/Slice";
 
+import { getAll } from "../../api/product/index";
+
 import classes from "./HomePage.module.css";
+import instance from "../../api/instance";
 function HomePage() {
+  type Product = {
+    _id: string;
+    image: string;
+    name: string;
+    price: number;
+  };
+
+  type Laptop = {
+    category: object;
+    products: [{ name: string; price: number; image: string; _id: string }];
+  };
+  const [products, setProducts] = useState<Product[]>([]);
+  const [laptop, setLaptop] = useState<Laptop>();
+
+  useEffect(() => {
+    const handleProducts = async () => {
+      const { data } = await instance.get(`api/products?page=1`);
+      setProducts(data);
+    };
+
+    handleProducts();
+  }, []);
+  useEffect(() => {
+    const handleLaps = async () => {
+      const { data } = await instance.get(
+        `api/category/6249d93124055f6d72104d2e?page=1`
+      );
+      setLaptop(data);
+    };
+    handleLaps();
+  }, []);
+  console.log(laptop);
+
   return (
     <div>
       <Slice />
       <main>
         <div className={classes.all}>
-          <h2 className={classes.allTitle}>Tất cả sản phẩm</h2>
+          <h2 className={classes.allTitle}>Sản phẩm mới nhất</h2>
           <div className={classes.allWrapper}>
-            <div className={classes.allBox}>
-              <div className={classes.allImg}>
-                <img
-                  src="https://cdn.hoanghamobile.com/i/productlist/ts/Uploads/2021/09/15/image-removebg-preview-15.png"
-                  alt=""
-                />
+            {products.map((product) => (
+              <div className={classes.allBox}>
+                <div className={classes.allImg}>
+                  <img src={`http://localhost:8000/${product.image}`} alt="" />
+                </div>
+                <div className={classes.allInfo}>
+                  <Link
+                    to={`/phone/${product._id}`}
+                    title="Điện thoại ipone 13"
+                    className={classes.allName}
+                  >
+                    {product.name}
+                  </Link>
+                  <span className={classes.allPrice}>
+                    {new Intl.NumberFormat("en-US").format(product.price)} VNĐ
+                  </span>
+                </div>
+                <div className={classes.AllBtn}>
+                  <Link to={`/phone/${product._id}`}>Mua ngay</Link>
+                </div>
               </div>
-              <div className={classes.allInfo}>
-                <Link
-                  to="/phone/1"
-                  title="Điện thoại ipone 13"
-                  className={classes.allName}
-                >
-                  Apple iPhone 13 Pro Max - Chính hãng VN/A
-                </Link>
-                <span className={classes.allPrice}>28,000,000 VNĐ</span>
-              </div>
-              <div className={classes.AllBtn}>
-                <Link to="/phone/1">Mua ngay</Link>
-              </div>
-            </div>
-            <div className={classes.allBox}>
-              <div className={classes.allImg}>
-                <img
-                  src="https://cdn.hoanghamobile.com/i/productlist/ts/Uploads/2021/09/15/image-removebg-preview-15.png"
-                  alt=""
-                />
-              </div>
-              <div className={classes.allInfo}>
-                <Link
-                  to="/phone/1"
-                  title="Điện thoại ipone 13"
-                  className={classes.allName}
-                >
-                  Apple iPhone 13 Pro Max - Chính hãng VN/A
-                </Link>
-                <span className={classes.allPrice}>28,000,000 VNĐ</span>
-              </div>
-              <div className={classes.AllBtn}>
-                <Link to="/phone/1">Mua ngay</Link>
-              </div>
-            </div>
-            <div className={classes.allBox}>
-              <div className={classes.allImg}>
-                <img
-                  src="https://cdn.hoanghamobile.com/i/productlist/ts/Uploads/2021/09/15/image-removebg-preview-15.png"
-                  alt=""
-                />
-              </div>
-              <div className={classes.allInfo}>
-                <Link
-                  to="/phone/1"
-                  title="Điện thoại ipone 13"
-                  className={classes.allName}
-                >
-                  Apple iPhone 13 Pro Max - Chính hãng VN/A
-                </Link>
-                <span className={classes.allPrice}>28,000,000 VNĐ</span>
-              </div>
-              <div className={classes.AllBtn}>
-                <Link to="/phone/1">Mua ngay</Link>
-              </div>
-            </div>
-            <div className={classes.allBox}>
-              <div className={classes.allImg}>
-                <img
-                  src="https://cdn.hoanghamobile.com/i/productlist/ts/Uploads/2021/09/15/image-removebg-preview-15.png"
-                  alt=""
-                />
-              </div>
-              <div className={classes.allInfo}>
-                <Link
-                  to="/"
-                  title="Điện thoại ipone 13"
-                  className={classes.allName}
-                >
-                  Apple iPhone 13 Pro Max - Chính hãng VN/A
-                </Link>
-                <span className={classes.allPrice}>28,000,000 VNĐ</span>
-              </div>
-              <div className={classes.AllBtn}>
-                <Link to="/">Mua ngay</Link>
-              </div>
-            </div>
-            <div className={classes.allBox}>
-              <div className={classes.allImg}>
-                <img
-                  src="https://cdn.hoanghamobile.com/i/productlist/ts/Uploads/2021/09/15/image-removebg-preview-15.png"
-                  alt=""
-                />
-              </div>
-              <div className={classes.allInfo}>
-                <Link
-                  to="/"
-                  title="Điện thoại ipone 13"
-                  className={classes.allName}
-                >
-                  Apple iPhone 13 Pro Max - Chính hãng VN/A
-                </Link>
-                <span className={classes.allPrice}>28,000,000 VNĐ</span>
-              </div>
-              <div className={classes.AllBtn}>
-                <Link to="/">Mua ngay</Link>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
 
@@ -129,138 +82,30 @@ function HomePage() {
         <div className={classes.all}>
           <h2 className={classes.allTitle}>Laptop mới nhất</h2>
           <div className={classes.allWrapper}>
-            <div className={classes.allBox}>
-              <div className={classes.allImg}>
-                <img
-                  src="https://cdn.hoanghamobile.com/i/productlist/ts/Uploads/2020/11/17/macmoi256.png"
-                  alt=""
-                />
-              </div>
-              <div className={classes.allInfo}>
-                <Link
-                  to="/"
-                  title="Điện thoại ipone 13"
-                  className={classes.allName}
-                >
-                  Apple M1 - MacBook Air 13" 16GB/256GB 2020 - Chính hãng Apple
-                  Việt Nam
-                </Link>
-                <span className={classes.allPrice}>28,000,000 VNĐ</span>
-              </div>
-              <div className={classes.AllBtn}>
-                <Link to="/">Mua ngay</Link>
-              </div>
-            </div>
-            <div className={classes.allBox}>
-              <div className={classes.allImg}>
-                <img
-                  src="https://cdn.hoanghamobile.com/i/productlist/ts/Uploads/2020/11/17/macmoi256.png"
-                  alt=""
-                />
-              </div>
-              <div className={classes.allInfo}>
-                <Link
-                  to="/"
-                  title="Điện thoại ipone 13"
-                  className={classes.allName}
-                >
-                  Apple M1 - MacBook Air 13" 16GB/256GB 2020 - Chính hãng Apple
-                  Việt Nam
-                </Link>
-                <span className={classes.allPrice}>28,000,000 VNĐ</span>
-              </div>
-              <div className={classes.AllBtn}>
-                <Link to="/">Mua ngay</Link>
-              </div>
-            </div>
-            <div className={classes.allBox}>
-              <div className={classes.allImg}>
-                <img
-                  src="https://cdn.hoanghamobile.com/i/productlist/ts/Uploads/2020/11/17/macmoi256.png"
-                  alt=""
-                />
-              </div>
-              <div className={classes.allInfo}>
-                <Link
-                  to="/"
-                  title="Điện thoại ipone 13"
-                  className={classes.allName}
-                >
-                  Apple M1 - MacBook Air 13" 16GB/256GB 2020 - Chính hãng Apple
-                  Việt Nam
-                </Link>
-                <span className={classes.allPrice}>28,000,000 VNĐ</span>
-              </div>
-              <div className={classes.AllBtn}>
-                <Link to="/">Mua ngay</Link>
-              </div>
-            </div>
-            <div className={classes.allBox}>
-              <div className={classes.allImg}>
-                <img
-                  src="https://cdn.hoanghamobile.com/i/productlist/ts/Uploads/2020/11/17/macmoi256.png"
-                  alt=""
-                />
-              </div>
-              <div className={classes.allInfo}>
-                <Link
-                  to="/"
-                  title="Điện thoại ipone 13"
-                  className={classes.allName}
-                >
-                  Apple M1 - MacBook Air 13" 16GB/256GB 2020 - Chính hãng Apple
-                  Việt Nam
-                </Link>
-                <span className={classes.allPrice}>28,000,000 VNĐ</span>
-              </div>
-              <div className={classes.AllBtn}>
-                <Link to="/">Mua ngay</Link>
-              </div>
-            </div>
-            <div className={classes.allBox}>
-              <div className={classes.allImg}>
-                <img
-                  src="https://cdn.hoanghamobile.com/i/productlist/ts/Uploads/2020/11/17/macmoi256.png"
-                  alt=""
-                />
-              </div>
-              <div className={classes.allInfo}>
-                <Link
-                  to="/"
-                  title="Điện thoại ipone 13"
-                  className={classes.allName}
-                >
-                  Apple M1 - MacBook Air 13" 16GB/256GB 2020 - Chính hãng Apple
-                  Việt Nam
-                </Link>
-                <span className={classes.allPrice}>28,000,000 VNĐ</span>
-              </div>
-              <div className={classes.AllBtn}>
-                <Link to="/">Mua ngay</Link>
-              </div>
-            </div>
-            <div className={classes.allBox}>
-              <div className={classes.allImg}>
-                <img
-                  src="https://cdn.hoanghamobile.com/i/productlist/ts/Uploads/2020/11/17/macmoi256.png"
-                  alt=""
-                />
-              </div>
-              <div className={classes.allInfo}>
-                <Link
-                  to="/"
-                  title="Điện thoại ipone 13"
-                  className={classes.allName}
-                >
-                  Apple M1 - MacBook Air 13" 16GB/256GB 2020 - Chính hãng Apple
-                  Việt Nam
-                </Link>
-                <span className={classes.allPrice}>28,000,000 VNĐ</span>
-              </div>
-              <div className={classes.AllBtn}>
-                <Link to="/">Mua ngay</Link>
-              </div>
-            </div>
+            {laptop
+              ? laptop.products.map((lap) => (
+                  <div className={classes.allBox}>
+                    <div className={classes.allImg}>
+                      <img src={`http://localhost:8000/${lap.image}`} alt="" />
+                    </div>
+                    <div className={classes.allInfo}>
+                      <Link
+                        to={`/phone/${lap._id}`}
+                        title=""
+                        className={classes.allName}
+                      >
+                        {lap.name}
+                      </Link>
+                      <span className={classes.allPrice}>
+                        {new Intl.NumberFormat("en-US").format(lap.price)} VNĐ
+                      </span>
+                    </div>
+                    <div className={classes.AllBtn}>
+                      <Link to={`/phone/${lap._id}`}>Mua ngay</Link>
+                    </div>
+                  </div>
+                ))
+              : ""}
           </div>
         </div>
       </main>

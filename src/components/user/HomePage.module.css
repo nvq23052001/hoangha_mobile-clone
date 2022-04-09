@@ -27,7 +27,7 @@
 }
 
 .allImg {
-  margin: 20px auto 0 auto;
+  margin: 20px 10px 0 10px;
   display: grid;
   justify-content: center;
 }
@@ -39,9 +39,14 @@
 }
 
 .allName {
-  font-family: "Archivo Black", sans-serif;
+  font-weight: bold;
   font-size: 1.2rem;
   text-align: center;
+  min-height: 50px;
+  color: #000;
+}
+.allName:hover {
+  color: var(--color-main);
 }
 
 .allPrice {

@@ -26,7 +26,7 @@ function Header() {
               </li>
               <li className={classes.topItem}>
                 {user.user.email ? (
-                  <p>{user.user.email}</p>
+                  <p className={classes.email}>{user.user.email}</p>
                 ) : (
                   <Link to="/login">Đăng nhập</Link>
                 )}

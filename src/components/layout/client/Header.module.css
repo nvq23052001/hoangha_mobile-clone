@@ -3,6 +3,9 @@
 .topNavigation {
   background-color: var(--color-main);
 }
+a {
+  color: #fff;
+}
 
 .container {
   padding: 10px;
@@ -13,6 +16,8 @@
 .topList {
   display: flex;
   justify-content: end;
+  margin-bottom: 0;
+  align-items: center;
 }
 
 .topItem {
@@ -86,6 +91,7 @@
   justify-content: space-around;
   color: white;
   padding: 10px 20px 10px 50px;
+  margin-bottom: 0;
 }
 
 .navLink {
@@ -97,6 +103,7 @@
 .navTitle {
   margin-top: 5px;
   font-size: 1rem;
+  color: #fff;
 }
 .navItem {
 }
@@ -116,4 +123,8 @@
 .nav {
   max-width: 1200px;
   margin: 0 auto;
+}
+
+.email {
+  margin-bottom: 0;
 }

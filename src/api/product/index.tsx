@@ -4,6 +4,10 @@ export const getAll = () => {
   return instance.get(`api/products`);
 };
 
+export const getOnce = (id: any) => {
+  return instance.get(`api/product/${id}`);
+};
+
 export const createProduct = (data: any, token: any, userId: string) => {
   return instance.post(`api/products/${userId}`, data, {
     headers: { Authorization: "Bearer " + token },

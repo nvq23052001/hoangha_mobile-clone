@@ -1,19 +1,58 @@
 import clsx from "clsx";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Carousel } from "react-carousel-minimal";
+import { useParams } from "react-router-dom";
+
+import { getOnce } from "../../api/product";
 
 import classes from "./ProductDetail.module.css";
 function ProductDetail() {
-  const data = [
+  type ProductType = {
+    image: string;
+    price: Number;
+    name: string;
+    description: string;
+    imageDetail: [];
+  };
+
+  type Slide = {
+    image: string;
+    caption: string;
+  };
+
+  const { id } = useParams();
+
+  const [product, setProduct] = useState<ProductType>({
+    image: "a",
+    price: 1,
+    name: "a",
+    description: "a",
+    imageDetail: [],
+  });
+  const [data, setData] = useState<Slide[]>([]);
+
+  useEffect(() => {
+    const handleProduct = async () => {
+      const { data } = await getOnce(id);
+      setProduct(data);
+      setData(data.imageDetail);
+    };
+    handleProduct();
+  }, []);
+
+  const dataInitial = [
     {
       image:
-        "https://images.fpt.shop/unsafe/fit-in/214x214/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2022/3/1/637817382309274036_samsung-galaxy-s22-ultra-do-dd-1.jpg",
+        "https://cdn.hoanghamobile.com/i/home/Uploads/2022/04/02/web111.png",
+      caption: ".",
     },
     {
       image:
-        "https://images.fpt.shop/unsafe/fit-in/214x214/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2021/9/14/637672549881930223_vivo-y21s-xanh-dd.jpg",
+        "https://cdn.hoanghamobile.com/i/home/Uploads/2022/03/28/web-1.jpg",
+      caption: ".",
     },
   ];
+  console.log(product);
   return (
     <div className={classes.container}>
       <div className={classes.productDetail}>
@@ -26,8 +65,8 @@ function ProductDetail() {
           <div className={classes.productImg}>
             <div style={{ textAlign: "center" }}>
               <div>
-                <Carousel
-                  data={data}
+                {/* <Carousel
+                  data={data !== [] ? data : dataInitial}
                   time={2000}
                   width="600px"
                   height="400px"
@@ -48,13 +87,26 @@ function ProductDetail() {
                     maxHeight: "auto",
                     margin: "40px auto",
                   }}
-                />
+                /> */}
+                <div className={classes.dm}>
+                  <div className={classes.imgMain}>
+                    <img
+                      src={`http://localhost:8000/${product.image}`}
+                      alt=""
+                    />
+                  </div>
+                  <div className={classes.imgDetail}>
+                    {data.map((img) => (
+                      <img src={`http://localhost:8000/${img}`} alt="" />
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
           <div className={classes.productDetailContainer}>
             <p className={classes.productPrice}>
-              6,050,000 ₫ | <i>Giá đã bao gồm 10% VAT</i>
+              {product.price} VNĐ | <i>Giá đã bao gồm 10% VAT</i>
             </p>
             <p className={classes.productShip}>
               <svg
@@ -81,16 +133,7 @@ function ProductDetail() {
             </div>
             <div className={classes.productDesc}>
               <h2 className={classes.productSale}>Mô tả sản phẩm</h2>
-              <p className={classes.productDescP}>
-                Thiết kế độc đáo, trẻ trung phù hợp với giới trẻ Redmi Note 11S
-                chứa một thiết kế khung phẳng hoàn toàn mới với phong cách tối
-                giản mang đến vẻ ngoài năng động và mạnh mẽ, đồng thời cũng chắc
-                chắn và an toàn trong tay bạn. Các góc cạnh điện thoại được
-                thiết kế bo tròn vô cùng thời thượng tạo cảm giác cầm nắm dễ
-                chịu. Độ dày của Redmi Note 11S chỉ 8,09mm và trọng lượng 179g
-                tạo ấn tượng về một chiếc điện thoại kích thước vừa phải để mang
-                đi bất cứ nơi đâu.
-              </p>
+              <p className={classes.productDescP}>{product.description}</p>
             </div>
             <div className={classes.productBtn}>
               <button className={classes.productCart}>Thêm vào giỏ hàng</button>

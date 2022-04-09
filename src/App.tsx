@@ -16,7 +16,7 @@ import Login from "./components/user/Login";
 import HomePage from "./components/user/HomePage";
 import ProductDetail from "./components/user/ProductDetail";
 import NotFound from "./components/UI/NotFound";
-
+import UserAdmin from "./components/admin/user/UserAdmin";
 function App() {
   return (
     <div className="App">
@@ -35,6 +35,10 @@ function App() {
               <Route index element={<ProductAdmin />} />
               <Route path="edit" element={<ProductForm />} />
             </Route>
+          </Route>
+
+          <Route path="users">
+            <Route index element={<UserAdmin />} />
           </Route>
 
           <Route path="category">

@@ -1,39 +1,35 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import { useAppSelector } from "../../../store/user/hook";
 import { Table, Tag, Space } from "antd";
 import "antd/dist/antd.css";
 
 import ButtonAdmin from "../../UI/ButtonAdmin";
-import { getCategories, deleteCategory } from "../../../api/category";
+import { getUsers } from "../../../api/user";
 
-type Categories = {
+type UserType = {
   _id: string;
   name: string;
+  email: string;
+  role: number;
 };
 
-function CategoryAdmin() {
-  const [categories, setCategories] = useState<Categories[]>([]);
-  const user = useAppSelector(({ auth }) => auth.user);
+function UserAdmin() {
+  const [users, setUsers] = useState<UserType[]>([]);
 
-  const handleCategories = async (page) => {
-    const { data } = await getCategories();
-    setCategories(data);
+  const handleCategories = async () => {
+    const { data } = await getUsers();
+    setUsers(data);
   };
 
-  const handleDelete = async (id: string) => {
-    if (user) {
-      const confirm = window.confirm("Bạn có chắc chắn muốn xóa danh mục này?");
-      if (confirm) {
-        await deleteCategory(id, user.user._id, user.token);
-        handleCategories(1);
-      }
-    }
+  const handleDelete = async (id) => {
+    console.log(id);
   };
 
   useEffect(() => {
-    handleCategories(1);
+    handleCategories();
   }, []);
+
+  console.log(users);
 
   const columns = [
     {
@@ -43,29 +39,61 @@ function CategoryAdmin() {
       render: (text) => text,
     },
     {
-      title: "Action",
-      key: "action",
-      render: (text, category) => (
+      title: "Email",
+      dataIndex: "email",
+      key: "email",
+      render: (email) => (
         <Space size="middle">
-          <Link
-            to={`/admin/category/${category._id}/edit`}
-            className="text-blue-600 dark:text-blue-500 hover:underline"
-          >
-            <ButtonAdmin bgColor={"bg-lightBlue-500"}>Edit</ButtonAdmin>
-          </Link>
+          <p>{email}</p>
         </Space>
       ),
     },
     {
+      title: "Role",
+      dataIndex: "role",
+      key: "role",
+      render: (role) => {
+        return (
+          <Space size="middle">
+            {role === 1 ? (
+              <button
+                style={{
+                  border: "1px solid #333",
+                  backgroundColor: "#00483d",
+                  padding: "5px 10px",
+                  borderRadius: "20px",
+                  color: "#fff",
+                }}
+              >
+                Member
+              </button>
+            ) : (
+              <button
+                style={{
+                  border: "1px solid #0284c7",
+                  backgroundColor: "#0284c7",
+                  padding: "5px 10px",
+                  borderRadius: "20px",
+                  color: "#fff",
+                }}
+              >
+                Admin
+              </button>
+            )}
+          </Space>
+        );
+      },
+    },
+    {
       title: "Action",
       key: "action",
-      render: (text, category) => (
+      render: (text, user) => (
         <Space size="middle">
           <button
             className="bg-red-500 text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
             type="button"
-            style={{ padding: "16px 20px", fontSize: "16px" }}
-            onClick={() => handleDelete(category._id)}
+            style={{ padding: "5px 10px", fontSize: "12px" }}
+            onClick={() => handleDelete(user._id)}
           >
             Delete
           </button>
@@ -76,19 +104,13 @@ function CategoryAdmin() {
 
   return (
     <div>
-      <Link to="/admin/category/add">
-        <ButtonAdmin bgColor="bg-lightBlue-500">Add</ButtonAdmin>
-      </Link>
       <Table
         rowKey="_id"
         columns={columns}
-        dataSource={categories}
+        dataSource={users}
         pagination={{
           pageSize: 4,
-          total: 6,
-          onChange: (page) => {
-            handleCategories(page);
-          },
+          total: 4,
         }}
       />
       {/* <table className="min-w-full ">
@@ -161,4 +183,4 @@ function CategoryAdmin() {
   );
 }
 
-export default CategoryAdmin;
+export default UserAdmin;
