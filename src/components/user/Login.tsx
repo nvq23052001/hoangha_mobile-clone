@@ -38,8 +38,9 @@ function Login() {
   };
 
   const handlerSb = (data: any) => {
-    console.log(data);
     dispatch(signin(data));
+
+    navigate("/");
   };
 
   return (

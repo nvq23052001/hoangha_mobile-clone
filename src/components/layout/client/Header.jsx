@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import classes from "./Header.module.css";
-import { useAppSelector } from "../../../store/user/hook";
+import { useAppSelector, useAppDispatch } from "../../../store/user/hook";
+import { signin } from "../../../store/user/authSlice";
+import { useNavigate } from "react-router-dom";
+
 function Header() {
   // useEffect(() => {
   //   const line = document.querySelector(`.${classes.line}`);
@@ -15,6 +18,16 @@ function Header() {
   // }, []);
 
   const user = useAppSelector(({ auth }) => auth.user);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const [reload, setReload] = useState(true);
+
+  const handleLogout = () => {
+    localStorage.removeItem("persist:root");
+    setReload(false);
+    navigate("/");
+  };
   return (
     <>
       <header className={classes.header}>
@@ -33,7 +46,7 @@ function Header() {
               </li>
               <li className={classes.topItem}>
                 {user.user.email ? (
-                  <button>Logout</button>
+                  <button onClick={handleLogout}>Logout</button>
                 ) : (
                   <Link to="">Đăng ký</Link>
                 )}
